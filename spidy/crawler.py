@@ -755,7 +755,7 @@ MIME_TYPES = {
 # User-Agent Header Strings
 HEADERS = {
     'spidy': {
-        'User-Agent': 'spidy Web Crawler (Mozilla/5.0; bot; +https://github.com/rivermont/spidy/)',
+        'User-Agent': 'spidy Web Crawler (Mozilla/5.0; bot; +https://github.com/groupe-psychologies/spidy/)',
         'Accept-Language': 'en_US, en-US, en',
         'Accept-Encoding': 'gzip',
         'Connection': 'keep-alive'
