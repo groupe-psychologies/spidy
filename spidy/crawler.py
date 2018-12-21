@@ -110,7 +110,7 @@ def write_log(operation, message, package='spidy', status='INFO', worker=0):
 
 
 write_log('INIT', 'Starting spidy Web Crawler version {0}'.format(VERSION))
-write_log('INIT', 'Report any problems to GitHub at https://github.com/rivermont/spidy')
+write_log('INIT', 'Report any problems to GitHub at https://github.com/groupe-psychologies/spidy')
 
 
 ###########
