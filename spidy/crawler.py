@@ -274,7 +274,7 @@ def crawl_worker(thread_id, robots_index):
     """
 
     # Declare global variables
-    global VERSION, START_TIME, START_TIME_LONG
+    global VERSION, START_TIME, START_TIME_LONG, START, PROTO
     global LOG_FILE, LOG_FILE_NAME, ERR_LOG_FILE_NAME
     global HEADER, WORKING_DIR, KILL_LIST
     global COUNTER, NEW_ERROR_COUNT, KNOWN_ERROR_COUNT, HTTP_ERROR_COUNT, NEW_MIME_COUNT
@@ -340,12 +340,10 @@ def crawl_worker(thread_id, robots_index):
                         # Skip empty links
                         if len(link) <= 0 or link == "/":
                             continue
-                        # If link is relative, make it absolute
-                        if link[0] == '/':
-                            if url[-1] == '/':
-                                link = url[:-1] + link
-                            else:
-                                link = url + link
+                        if link[0] == '/' and link[1] == '/':
+                            link = PROTO + link
+                        elif link[0] == '/':
+                            link = START[0] + link
                         TODO.put(link)
                     DONE.put(url)
                     COUNTER.increment()
@@ -798,6 +796,7 @@ KILL_LIST = [
 
 # Links to start crawling if the TODO list is empty
 START = ['https://en.wikipedia.org/wiki/Main_Page']
+PROTO = 'http:'
 
 # Counter variables
 COUNTER = Counter(0)
