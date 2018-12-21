@@ -344,6 +344,8 @@ def crawl_worker(thread_id, robots_index):
                             link = PROTO + link
                         elif link[0] == '/':
                             link = START[0] + link
+                        if check_link(link, robots_index):
+                            continue;
                         TODO.put(link)
                     DONE.put(url)
                     COUNTER.increment()
@@ -433,7 +435,7 @@ def check_link(item, robots_index=None):
     if robots_index and not robots_index.is_allowed(item):
         return True
     if RESTRICT:
-        if DOMAIN not in item:
+        if not item.startswith(DOMAIN):
             return True
     if len(item) < 10 or len(item) > 255:
         return True
