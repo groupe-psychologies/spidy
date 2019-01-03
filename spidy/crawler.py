@@ -430,6 +430,7 @@ def check_link(item, robots_index=None):
     Returns True if item is not a valid url.
     Returns False if item passes all inspections (is valid url).
     """
+    global PROTO, DEPTH
     # Shortest possible url being 'http://a.b', and
     # Links longer than 255 characters are usually too long for the filesystem to handle.
     if robots_index and not robots_index.is_allowed(item):
@@ -443,6 +444,9 @@ def check_link(item, robots_index=None):
     elif item[0:4] != 'http':
         return True
     elif item in copy(DONE.queue):
+        return True
+    if len(item[len(PROTO) + 2:].split('/')) > DEPTH:
+        write_log('CHECK', 'Maximum depth exceeded {0}'.format(item))
         return True
     return False
 
@@ -799,6 +803,7 @@ KILL_LIST = [
 # Links to start crawling if the TODO list is empty
 START = ['https://en.wikipedia.org/wiki/Main_Page']
 PROTO = 'http:'
+DPETH = 3
 
 # Counter variables
 COUNTER = Counter(0)
